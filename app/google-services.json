@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "48096528878",
+    "project_id": "time-to-login-5b61a",
+    "storage_bucket": "time-to-login-5b61a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48096528878:android:5deaec7e8b5597025ce6ff",
+        "android_client_info": {
+          "package_name": "com.example.loginlab4"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl0QMOrjUXbQFx3yeJ8sBGhuDyeWEWOdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
