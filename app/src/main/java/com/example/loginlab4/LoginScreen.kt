@@ -39,7 +39,7 @@ import com.example.loginlab4.ui.theme.AppScreens
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavController) {
-    val mContext = LocalContext.current
+    val context = LocalContext.current
 
     Image(painter = painterResource(id = R.drawable.login_screen), contentDescription = "Login Screen",
         modifier = Modifier.fillMaxSize(),
@@ -94,7 +94,7 @@ fun LoginScreen(navController: NavController) {
                 .height(60.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xffa167ba)),
-            onClick = { mToast(mContext) }) {
+            onClick = { loginFun(userEmail, userPassWord, context, navController) }) {
 
             Text(text = "Iniciar Sesión")
         }
@@ -121,8 +121,22 @@ fun LoginScreen(navController: NavController) {
     }
 }
 
-private fun mToast(context: Context){
-    Toast.makeText(context, "Funciona", Toast.LENGTH_LONG).show()
+private fun loginFun(email: String, password: String, context: Context, navController: NavController) {
+
+    if (email.isBlank() || password.isBlank()) {
+        Toast.makeText(context, "Asegúrate de llenar todos los campos", Toast.LENGTH_LONG).show()
+        return
+    }
+
+    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+        if (it.isSuccessful) {
+            Toast.makeText(context, "Iniciaste sesión correctamente", Toast.LENGTH_LONG).show()
+            navController.navigate(route = AppScreens.SuccessScreen.route)
+
+        } else {
+            Toast.makeText(context, "Correo o contraseña inválidos.", Toast.LENGTH_LONG).show()
+        }
+    }
 }
 
 @Preview
