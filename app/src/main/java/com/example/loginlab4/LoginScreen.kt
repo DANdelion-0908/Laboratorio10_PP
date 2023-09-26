@@ -35,6 +35,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.loginlab4.ui.theme.AppScreens
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.GetTokenResult
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
