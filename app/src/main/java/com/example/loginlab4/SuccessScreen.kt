@@ -21,7 +21,7 @@ fun SuccessScreen() {
         modifier = Modifier.fillMaxSize(),
         contentScale = ContentScale.Crop)
 
-    Text(text = "com.google.android.gms.tasks.zzzfojkfegonifergnoiwf",
+    Text(text = getToken().toString(),
         fontSize = 13.sp,
         modifier = Modifier.padding(110.dp))
 }
