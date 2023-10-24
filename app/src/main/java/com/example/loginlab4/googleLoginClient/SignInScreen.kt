@@ -1,8 +1,9 @@
 package com.example.loginlab4.googleLoginClient
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -21,23 +22,21 @@ fun SignInScreen(
     val context = LocalContext.current
     LaunchedEffect(key1 = state.signInError) {
         state.signInError.let { error ->
-            Toast.makeText(
-                context,
-                error,
-                Toast.LENGTH_LONG
-            ).show()
+            //Toast.makeText(
+                //context,
+                //error,
+              //  Toast.LENGTH_LONG
+            //).show()
         }
     }
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        contentAlignment = Alignment.Center
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center,
     ) {
         Button(onClick = onSignInState) {
             Text(text = "Sign in")
         }
     }
 }
-

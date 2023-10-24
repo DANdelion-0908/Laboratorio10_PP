@@ -1,6 +1,5 @@
 package com.example.loginlab4
 
-import android.content.IntentSender
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -17,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.loginlab4.googleLoginClient.GoogleLoginClient
+import com.example.loginlab4.googleLoginClient.ProfileScreen
 import com.example.loginlab4.googleLoginClient.SignInScreen
 import com.example.loginlab4.googleLoginClient.SignInViewModel
 import com.google.android.gms.auth.api.identity.Identity
@@ -33,15 +33,20 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AppNavigation()
+            //AppNavigation()
             val navController = rememberNavController()
             NavHost(navController = navController, startDestination = "sign_in") {
                 composable("sign_in") {
                     val viewModel = viewModel<SignInViewModel>()
                     val state by viewModel.state.collectAsStateWithLifecycle()
 
+                    LaunchedEffect(key1 = Unit) {
+                        if(googleLoginClient.getSignInedUser() != null) {
+                            navController.navigate("profile")
+                        }
+                    }
                     val launcher = rememberLauncherForActivityResult(
-                        contract = ActivityResultContracts.StartActivityForResult(),
+                        contract = ActivityResultContracts.StartIntentSenderForResult(),
                         onResult = { result ->
                             if(result.resultCode == RESULT_OK) {
                                 lifecycleScope.launch {
@@ -61,6 +66,9 @@ class MainActivity : ComponentActivity() {
                                 "Se pudo",
                                 Toast.LENGTH_SHORT
                             ).show()
+
+                            navController.navigate("profile")
+                            viewModel.resetState()
                         }
                     }
 
@@ -69,11 +77,28 @@ class MainActivity : ComponentActivity() {
                         onSignInState = {
                             lifecycleScope.launch {
                                 val signInIntendSender = googleLoginClient.signIn()
-                                //launcher.launch(
-                                    //IntentSenderRequest.Builder(
-                                      //  signInIntendSender?: return@launch
-                                    //).build()
-                                //)
+                                launcher.launch(
+                                    IntentSenderRequest.Builder(
+                                        signInIntendSender?: return@launch
+                                    ).build()
+                                )
+                            }
+                        }
+                    )
+                }
+                composable("profile") {
+                    ProfileScreen(
+                        userData = googleLoginClient.getSignInedUser(),
+                        onSignOut = {
+                            lifecycleScope.launch {
+                                googleLoginClient.signOut()
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Hasta otra",
+                                    Toast.LENGTH_LONG
+                                ).show()
+
+                                navController.popBackStack()
                             }
                         }
                     )
@@ -82,5 +107,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
