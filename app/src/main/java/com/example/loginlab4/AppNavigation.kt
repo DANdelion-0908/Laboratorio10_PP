@@ -3,9 +3,12 @@ package com.example.loginlab4
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.loginlab4.googleLoginClient.SignInViewModel
 import com.example.loginlab4.ui.theme.AppScreens
 
 @Composable
