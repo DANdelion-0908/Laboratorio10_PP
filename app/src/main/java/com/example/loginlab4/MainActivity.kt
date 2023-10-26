@@ -7,6 +7,8 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -19,6 +21,7 @@ import com.example.loginlab4.googleLoginClient.GoogleLoginClient
 import com.example.loginlab4.googleLoginClient.ProfileScreen
 import com.example.loginlab4.googleLoginClient.SignInScreen
 import com.example.loginlab4.googleLoginClient.SignInViewModel
+import com.example.loginlab4.ui.theme.AppScreens
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
 
@@ -83,7 +86,8 @@ class MainActivity : ComponentActivity() {
                                     ).build()
                                 )
                             }
-                        }
+                        },
+                        navController
                     )
                 }
                 composable("profile") {
@@ -100,8 +104,40 @@ class MainActivity : ComponentActivity() {
 
                                 navController.popBackStack()
                             }
-                        }
+                        },
+                        auth.currentUser?.email
                     )
+                }
+                composable(route = AppScreens.SignupScreen.route,
+                    enterTransition = {
+                        slideIntoContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(500)
+                        ) },
+
+                    exitTransition = {
+                        slideOutOfContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(500)
+                        )
+                    }) {
+                    SignupScreen(navController)
+                }
+
+                composable(route = AppScreens.SignInScreen.route,
+                    enterTransition = {
+                        slideIntoContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(500)
+                        ) },
+
+                    exitTransition = {
+                        slideOutOfContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(500)
+                        )
+                    }) {
+                    SuccessScreen()
                 }
             }
         }

@@ -54,7 +54,7 @@ class GoogleLoginClient(
                         SignInResult(
                             data = null,
                             errorMessage = e.message
-                    )
+                        )
             }
         }
 

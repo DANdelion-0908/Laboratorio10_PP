@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,7 +22,8 @@ import coil.compose.AsyncImage
 @Composable
 fun ProfileScreen(
     userData: UserData?,
-    onSignOut: () -> Unit
+    onSignOut: () -> Unit,
+    userName: String?
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -41,13 +41,20 @@ fun ProfileScreen(
                )
            Spacer(modifier = Modifier.height(16.dp))
        }
+
         if(userData?.userName != null) {
             Text(text = userData.userName,
                 fontSize = 36.sp,
                 fontWeight = FontWeight.SemiBold)
             
             Spacer(modifier = Modifier.height(16.dp))
+        } else if (userName != null) {
+            Text(text = userName,
+                fontSize = 36.sp,
+                fontWeight = FontWeight.SemiBold
+            )
         }
+
         Button(onClick = onSignOut) {
             Text(text = "Sign Out")
         }

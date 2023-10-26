@@ -144,7 +144,7 @@ fun SignupScreen(navController: NavController) {
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0x00000000)),
             onClick = {
-                navController.navigate(route = AppScreens.LoginScreen.route)
+                navController.navigate(route = "sign_in")
             }) {
 
             Text(text = "INICIAR SESIÓN",
@@ -168,16 +168,10 @@ private fun signupFun(email: String, name: String, password: String, passwordVer
     auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
         if (it.isSuccessful) {
             Toast.makeText(context, "Te has registrado correctamente", Toast.LENGTH_LONG).show()
-            navController.navigate(route = AppScreens.LoginScreen.route)
+            navController.navigate(route = "sign_in")
 
         } else {
             Toast.makeText(context, "No te has podido registrar", Toast.LENGTH_LONG).show()
         }
     }
-}
-
-@Preview
-@Composable
-fun SignUpPreview() {
-    AppNavigation()
 }
