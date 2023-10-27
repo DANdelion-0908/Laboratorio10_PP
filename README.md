@@ -1,2 +1,2 @@
-# Laboratorio4_PP
- Laboratorio 4 - Programación de Plataformas Móviles
+# Laboratorio10_PP
+ Laboratorio 10 - Programación de Plataformas Móviles
